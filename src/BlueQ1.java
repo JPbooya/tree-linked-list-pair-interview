@@ -23,6 +23,20 @@ public class BlueQ1 {
      * @return the sum of the even leaf nodes
      */
     public static int evenLeafSum(TreeNode root) {
-        return -1;
+        // check for null return 0
+        //check for even leafs 
+        // if there are no even leaf nodes return 0
+        // return sum of even leaf both left and right
+
+        if(root == null) return 0;
+
+        if(root.left == null && root.right == null) {
+            if(root.data % 2 == 0) {
+                return root.data;
+        } else {
+            return 0;
+        }
+    }
+        return evenLeafSum(root.left) + evenLeafSum(root.right);
     }
 }

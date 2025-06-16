@@ -1,3 +1,5 @@
+//import apple.laf.JRSUIUtils.Tree;
+
 public class BlueQ2 {
     /**
      * Returns which has a higher range: a given linked list or a given tree.
@@ -32,8 +34,49 @@ public class BlueQ2 {
      * @return "list" if the list has a bigger range, "tree" otherwise
      */
     public static String biggerRange(ListNode head, TreeNode root) {
-        return null;
+
+        ListNode current = head;
+
+        int listMin = Integer.MAX_VALUE;
+        int listMax = Integer.MIN_VALUE;
+
+        while(current != null) {
+            if(current.data < listMin) {
+                listMin = current.data;
+            } 
+            if(current.data > listMax) {
+                listMax = current.data;
+            }
+            
+            current = current.next;
+        }
+
+        int listRange = listMax - listMin;
+
+        int treeMax = treeMax(root);
+        int treeMin = treeMin(root);
+        int treeRange = treeMax - treeMin;
+
+        if(listRange > treeRange) {
+            return "list";
+        } else {
+            return "tree";
+        }
     }
 
+    public static int treeMin(TreeNode root) {
+        if(root == null) return Integer.MAX_VALUE;
+        int leftTreeMin = treeMin(root.left);
+        int rightTreeMin = treeMin(root.right);
+        return Math.min(root.data, Math.min(leftTreeMin, rightTreeMin));
+    }
 
+    public static int treeMax(TreeNode root) {
+        if(root == null) return Integer.MIN_VALUE;
+        int leftTreeMax = treeMax(root.left);
+        int rightTreeMax = treeMax(root.right);
+        return Math.max(root.data, Math.max(leftTreeMax, rightTreeMax));
+    }
 }
+
+        
